@@ -192,7 +192,88 @@ class HtmlMonographFilePlugin extends GenericPlugin {
 		foreach ($paramArray as $key => $value) {
 			$contents = str_replace('{$' . $key . '}', $value, $contents);
 		}
+		
+		$doc = new DOMDocument();
+		$doc->loadHTML($contents);
 
+		$script = $doc->getElementsByTagName("script")[0];
+		while($script){
+			$script->parentNode->removeChild($script);
+			$script = $doc->getElementsByTagName("script")[0];
+		}
+
+		$doc_head = $doc->getElementsByTagName("head")[0];
+		$doc_body = $doc->getElementsByTagName("body")[0];
+
+		$doc_magnific_popup_css = $doc->createElement("link", "");
+		$doc_magnific_popup_css->setAttribute("rel", "stylesheet");
+		$doc_magnific_popup_css->setAttribute("type", "text/css");
+		$doc_magnific_popup_css->setAttribute("href", "https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css");
+		$doc_head->appendChild($doc_magnific_popup_css);
+		
+		$additional_css = $doc->createElement("style", "
+			body {
+				background-color: #FFFFFF;
+			}
+
+			#mainnav {
+				position: -webkit-sticky; 
+				position: sticky; 
+				top:0;
+			}
+			.manchette {
+				float: right;
+				margin-right: -23vw;
+				clear: right;
+				width: 20vw;
+				position: relative;
+				top: 0.3rem;
+				font-size: 90%;
+			}
+		");
+		$doc_head->appendChild($additional_css);
+
+		$doc_jQuery = $doc->createElement("script", "");
+		$doc_jQuery->setAttribute("src", "https://code.jquery.com/jquery-3.6.0.min.js");
+		$doc_head->appendChild($doc_jQuery);
+		
+		$doc_mathJax = $doc->createElement("script", "");
+		$doc_mathJax->setAttribute("src", "http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML");
+		$doc_head->appendChild($doc_mathJax);
+
+		$doc_magnific_popup_js = $doc->createElement("script", "");
+		$doc_magnific_popup_js->setAttribute("src", "https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js");
+		$doc_head->appendChild($doc_magnific_popup_js);
+
+		$doc_new_script = $doc->createElement("script", "
+			(function () {
+				let figureNodes = document.querySelectorAll('figure');
+				figureNodes.forEach(function(value, index, array) {
+					value.id = 'fig'+ (index+1);
+					value.setAttribute('class', 'magnificPopupImage');
+					value.setAttribute('href', value.querySelector('img').getAttribute('src'));
+					value.setAttribute('caption', value.querySelector('.txt_Legende').innerHTML);
+				});
+			})();
+		");
+		$doc_body->appendChild($doc_new_script);
+
+		$doc_new_script = $doc->createElement("script", "
+			$(document).ready(function($) {
+				$('.magnificPopupImage').magnificPopup({
+				gallery: {
+					enabled: true
+				},
+				type:'image',
+				image: {
+					titleSrc: 'caption'
+				}
+				});
+			});		 
+		");
+		$doc_body->appendChild($doc_new_script);
+
+		$contents = $doc->saveHTML();
 		return $contents;
 	}
 
