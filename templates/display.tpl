@@ -19,23 +19,7 @@
 	{load_script context="frontend" scripts=$scripts}
 </head>
 <body class="pkp_page_{$requestedPage|escape} pkp_op_{$requestedOp|escape}">
-	{* Header wrapper *}
-	<header class="header_viewable_file">
-
-		{capture assign="submissionUrl"}{url op="book" path=$publishedSubmission->getBestId()}{/capture}
-
-		<a href="{$submissionUrl}" class="return">
-			<span class="pkp_screen_reader">
-				{translate key="monograph.return"}
-			</span>
-		</a>
-
-		<a href="{url page="catalog" op="book" path=$monograph->getBestId()|to_array:$publicationFormat->getBestId():$downloadFile->getBestId()}" class="title">
-			{$monograph->getLocalizedTitle()|escape}
-		</a>
-	</header>
-
-	<div id="htmlContainer" class="viewable_file_frame{if !$isLatestPublication} viewable_file_frame_with_notice{/if}" style="overflow:visible;-webkit-overflow-scrolling:touch">
+	<div id="htmlContainer" class="viewable_file_frame{if !$isLatestPublication} viewable_file_frame_with_notice{/if}">
 		{if !$isLatestPublication}
 			<div class="viewable_file_frame_notice">
 				<div class="viewable_file_frame_notice_message" role="alert">

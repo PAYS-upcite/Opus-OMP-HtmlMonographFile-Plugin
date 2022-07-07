@@ -229,6 +229,7 @@ class HtmlMonographFilePlugin extends GenericPlugin {
 				padding-left: 3rem;
 				font-size: 1.5rem;
 				line-height: 1.2;
+				width: 57%;
 			}
 
 			.manchette {
@@ -263,6 +264,21 @@ class HtmlMonographFilePlugin extends GenericPlugin {
 					border-left: none;
 					width: 100%;
 				}
+			}
+
+			.totdm{
+				display: none;
+			}
+
+			#nav li{
+				margin-bottom : 0.5em;
+				font-family : Helvetica;
+			}
+
+			.head1{
+				list-style : none;
+				margin-top : 2em;
+				font-weight : bold;
 			}
 		");
 		$doc_head->appendChild($additional_css);
