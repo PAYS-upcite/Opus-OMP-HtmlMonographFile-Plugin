@@ -217,10 +217,20 @@ class HtmlMonographFilePlugin extends GenericPlugin {
 			}
 
 			#mainnav {
-				position: -webkit-sticky; 
-				position: sticky; 
-				top:0;
+				position: fixed; 
+				overflow-y: scroll; 
+				top: 0;
+				bottom: 0;
+				padding-right: 1rem;
 			}
+
+			article {
+				margin-left: 20%;
+				padding-left: 3rem;
+				font-size: 1.5rem;
+				line-height: 1.2;
+			}
+
 			.manchette {
 				float: right;
 				margin-right: -23vw;
@@ -229,6 +239,30 @@ class HtmlMonographFilePlugin extends GenericPlugin {
 				position: relative;
 				top: 0.3rem;
 				font-size: 90%;
+			}
+
+			a.hide , a.show {
+				visibility:hidden;
+			}
+
+			a {
+				text-decoration: none;
+			}
+
+			img {
+				max-height: 80vh;
+				max-width: 80vw;
+				height: auto;
+				width: auto;
+			}
+
+			@media screen and (max-width:1000px){
+				article{
+					margin-left: 0%;
+					padding-left: 0rem;
+					border-left: none;
+					width: 100%;
+				}
 			}
 		");
 		$doc_head->appendChild($additional_css);
