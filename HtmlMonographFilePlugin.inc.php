@@ -272,13 +272,40 @@ class HtmlMonographFilePlugin extends GenericPlugin {
 
 			#nav li{
 				margin-bottom : 0.5em;
-				font-family : Helvetica;
+				font-family : serif;
 			}
 
 			.head1{
 				list-style : none;
 				margin-top : 2em;
-				font-weight : bold;
+			}
+
+			.magnificPopupImage:hover{
+				opacity:.7;
+			}
+
+			.magnificPopupImage{
+				font-family: sans-serif;
+				color: #666;
+				font-size: 80%;
+				cursor: pointer;
+				transition: all 0.3s ease-in-out;
+			}
+
+			h1, h2, h3, h4, h5{
+				text-align: left;
+			}
+
+			.docAuthor, .hyperlink, .affiliation{
+				text-align: right;
+				display: block;
+				margin: 0;
+			}
+			
+			.docAuthor{
+				text-align: right;
+				display: block;
+				margin-top: 1em;
 			}
 		");
 		$doc_head->appendChild($additional_css);
@@ -298,11 +325,16 @@ class HtmlMonographFilePlugin extends GenericPlugin {
 		$doc_new_script = $doc->createElement("script", "
 			(function () {
 				let figureNodes = document.querySelectorAll('figure');
-				figureNodes.forEach(function(value, index, array) {
-					value.id = 'fig'+ (index+1);
-					value.setAttribute('class', 'magnificPopupImage');
-					value.setAttribute('href', value.querySelector('img').getAttribute('src'));
-					value.setAttribute('caption', value.querySelector('.txt_Legende').innerHTML);
+				figureNodes.forEach(function(figure, index, array) {
+					figure.id = 'fig'+ (index+1);
+					figure.setAttribute('class', 'magnificPopupImage');
+					figure.setAttribute('href', figure.querySelector('img').getAttribute('src'));
+					figure.setAttribute('caption', figure.querySelector('.txt_Legende').innerHTML);
+					let figureCaption = figure.querySelector('figcaption');
+					let figureLegend = figure.querySelector('.txt_Legende');
+					if(figureCaption !== null && figureLegend !== null){
+						figureCaption.append(figureLegend);
+					}
 				});
 			})();
 		");
