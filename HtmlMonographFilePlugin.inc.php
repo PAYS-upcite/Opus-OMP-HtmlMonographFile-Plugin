@@ -322,6 +322,11 @@ class HtmlMonographFilePlugin extends GenericPlugin {
 		$doc_magnific_popup_js->setAttribute("src", "https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js");
 		$doc_head->appendChild($doc_magnific_popup_js);
 
+		$td_elements = $doc->getElementsByTagName("td");
+		foreach ($td_elements as $key => $td) {
+			$td->removeAttribute("style");
+		}
+
 		$doc_new_script = $doc->createElement("script", "
 			(function () {
 				let figureNodes = document.querySelectorAll('figure');
