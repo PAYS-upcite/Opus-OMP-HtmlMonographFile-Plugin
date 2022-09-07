@@ -307,6 +307,22 @@ class HtmlMonographFilePlugin extends GenericPlugin {
 				display: block;
 				margin-top: 1em;
 			}
+
+			.table table {
+				text-align: initial;
+				font-family: Helvetica, sans-serif;
+				font-size: 1.2rem;
+				border-collapse: collapse;
+			  }
+
+			  .table table tr:nth-child(2n) {
+				background-color: #ededed;
+			  }
+			  
+			  .table table td {
+				padding: 6px 13px;
+				border: 1px solid #666;
+			  }
 		");
 		$doc_head->appendChild($additional_css);
 
