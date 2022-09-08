@@ -314,21 +314,69 @@ class HtmlMonographFilePlugin extends GenericPlugin {
 				margin-top: 1em;
 			}
 
+			.txt_separateur {
+				text-align: center;
+				font-weight: bold;
+			}
+
+			figure {
+				margin-bottom: 0;
+			}
+
+			figcaption {
+				font-size: 1rem;
+			}
+
 			.table table {
 				text-align: initial;
 				font-family: Helvetica, sans-serif;
 				font-size: 1.2rem;
 				border-collapse: collapse;
-			  }
+			}
 
-			  .table table tr:nth-child(2n) {
+			.table table tr:nth-child(2n) {
 				background-color: rgba(0, 0, 0, 0.05);
-			  }
+			}
 			  
-			  .table table td {
+			.table table td {
 				padding: 6px 13px;
 				border: 1px solid rgba(0, 0, 0, 0.2);
-			  }
+			}
+
+			.table caption {
+				caption-side: bottom;
+				font-weight: normal;
+			}
+
+			.txt_Legende, .table caption {
+				font-family: sans-serif;
+				color: #666;
+				font-size: 1rem;
+				text-align: center;
+				margin-top: 1em;
+				margin-bottom: 0;
+			}
+
+			figcaption .txt_Legende,
+			figcaption + .txt_Legende,
+			figure + .txt_Legende,
+			.txt_Legende + .txt_Legende,
+			.table + .txt_Legende {
+				margin-top: 0;
+			}
+
+			.txt_Legende:last-of-type {
+				margin-bottom: 1em;
+			}
+
+			figcaption .txt_Legende:last-of-type {
+				margin-bottom: 0;
+			}
+
+			.txt_Legende .hyperlink {
+				text-align: center;
+				opacity: .8;
+			}
 		");
 		$doc_head->appendChild($additional_css);
 
