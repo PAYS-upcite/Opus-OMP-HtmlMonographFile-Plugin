@@ -232,6 +232,12 @@ class HtmlMonographFilePlugin extends GenericPlugin {
 				width: 57%;
 			}
 
+			.tonote sup {
+				vertical-align: baseline;
+				position: relative;
+				top: -.3em;
+			}
+
 			.manchette {
 				float: right;
 				margin-right: -23vw;
@@ -316,12 +322,12 @@ class HtmlMonographFilePlugin extends GenericPlugin {
 			  }
 
 			  .table table tr:nth-child(2n) {
-				background-color: #ededed;
+				background-color: rgba(0, 0, 0, 0.05);
 			  }
 			  
 			  .table table td {
 				padding: 6px 13px;
-				border: 1px solid #666;
+				border: 1px solid rgba(0, 0, 0, 0.2);
 			  }
 		");
 		$doc_head->appendChild($additional_css);
