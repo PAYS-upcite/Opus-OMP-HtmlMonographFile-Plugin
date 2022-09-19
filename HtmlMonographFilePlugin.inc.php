@@ -313,6 +313,10 @@ class HtmlMonographFilePlugin extends GenericPlugin {
 				display: inline;
 			}
 			
+			blockquote .manchette{
+				margin-right: calc(-23vw - 40px);
+			}
+
 			.docAuthor{
 				text-align: right;
 				display: block;
