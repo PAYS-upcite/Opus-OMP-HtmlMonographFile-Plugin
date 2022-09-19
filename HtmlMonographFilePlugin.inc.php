@@ -308,6 +308,11 @@ class HtmlMonographFilePlugin extends GenericPlugin {
 				margin: 0;
 			}
 			
+			.txt_Note .hyperlink{
+				text-align: left;
+				display: inline;
+			}
+			
 			.docAuthor{
 				text-align: right;
 				display: block;
