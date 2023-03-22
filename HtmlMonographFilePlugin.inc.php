@@ -22,8 +22,8 @@ class HtmlMonographFilePlugin extends GenericPlugin {
 	function register($category, $path, $mainContextId = null) {
 		if (parent::register($category, $path, $mainContextId)) {
 			if ($this->getEnabled($mainContextId)) {
-				HookRegistry::register('CatalogBookHandler::view', array($this, 'viewCallback'));
-				HookRegistry::register('CatalogBookHandler::download', array($this, 'downloadCallback'));
+				HookRegistry::register('CatalogBookHandler::download', array($this, 'viewCallback'));
+				HookRegistry::register('CatalogBookHandler::view', array($this, 'downloadCallback'));
 			}
 			return true;
 		}
@@ -196,7 +196,7 @@ class HtmlMonographFilePlugin extends GenericPlugin {
 		$doc = new DOMDocument();
 		$doc->loadHTML($contents);
 
-		$script = $doc->getElementsByTagName("script")[0];
+		$script = $doc->getElementsByTagName("script")[0];		
 		while($script){
 			$script->parentNode->removeChild($script);
 			$script = $doc->getElementsByTagName("script")[0];
@@ -204,208 +204,95 @@ class HtmlMonographFilePlugin extends GenericPlugin {
 
 		$doc_head = $doc->getElementsByTagName("head")[0];
 		$doc_body = $doc->getElementsByTagName("body")[0];
-
+		
 		$doc_magnific_popup_css = $doc->createElement("link", "");
 		$doc_magnific_popup_css->setAttribute("rel", "stylesheet");
 		$doc_magnific_popup_css->setAttribute("type", "text/css");
 		$doc_magnific_popup_css->setAttribute("href", "https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css");
 		$doc_head->appendChild($doc_magnific_popup_css);
-		
-		$additional_css = $doc->createElement("style", "
-			body {
-				background-color: #FFFFFF;
-			}
 
-			#mainnav {
-				position: fixed; 
-				overflow-y: scroll; 
-				top: 0;
-				bottom: 0;
-				padding-right: 1rem;
-			}
-
-			article {
-				margin-left: 20%;
-				padding-left: 3rem;
-				font-size: 1.5rem;
-				line-height: 1.2;
-				width: 57%;
-			}
-
-			.tonote sup {
-				vertical-align: baseline;
-				position: relative;
-				top: -.3em;
-			}
-
-			.manchette {
-				float: right;
-				margin-right: -23vw;
-				clear: right;
-				width: 20vw;
-				position: relative;
-				top: 0.3rem;
-				font-size: 90%;
-			}
-
-			a.hide , a.show {
-				visibility:hidden;
-			}
-
-			a {
-				text-decoration: none;
-			}
-
-			img {
-				max-height: 80vh;
-				max-width: 80vw;
-				height: auto;
-				width: auto;
-			}
-
-			@media screen and (max-width:1000px){
-				article{
-					margin-left: 0%;
-					padding-left: 0rem;
-					border-left: none;
-					width: 100%;
-				}
-			}
-
-			.totdm{
-				display: none;
-			}
-
-			#nav li{
-				margin-bottom : 0.5em;
-				font-family : serif;
-			}
-
-			.head1{
-				list-style : none;
-				margin-top : 2em;
-			}
-
-			.magnificPopupImage:hover{
-				opacity:.7;
-			}
-
-			.magnificPopupImage{
-				font-family: sans-serif;
-				color: #666;
-				font-size: 80%;
-				cursor: pointer;
-				transition: all 0.3s ease-in-out;
-			}
-
-			h1, h2, h3, h4, h5{
-				text-align: left;
-			}
-
-			.docAuthor, .hyperlink, .affiliation{
-				text-align: right;
-				display: block;
-				margin: 0;
-			}
-			
-			.txt_Note .hyperlink{
-				text-align: left;
-				display: inline;
-			}
-			
-			blockquote .manchette{
-				margin-right: calc(-23vw - 40px);
-			}
-
-			.docAuthor{
-				text-align: right;
-				display: block;
-				margin-top: 1em;
-			}
-
-			.txt_separateur {
-				text-align: center;
-				font-weight: bold;
-			}
-
-			figure {
-				margin-bottom: 0;
-			}
-
-			figcaption {
-				font-size: 1rem;
-			}
-
-			.table table {
-				text-align: initial;
-				font-family: Helvetica, sans-serif;
-				font-size: 1.2rem;
-				border-collapse: collapse;
-			}
-
-			.table table tr:nth-child(2n) {
-				background-color: rgba(0, 0, 0, 0.05);
-			}
-			  
-			.table table td {
-				padding: 6px 13px;
-				border: 1px solid rgba(0, 0, 0, 0.2);
-			}
-
-			.table caption {
-				caption-side: bottom;
-				font-weight: normal;
-			}
-
-			.txt_Legende, .table caption {
-				font-family: sans-serif;
-				color: #666;
-				font-size: 1rem;
-				text-align: center;
-				margin-top: 1em;
-				margin-bottom: 0;
-			}
-
-			figcaption .txt_Legende,
-			figcaption + .txt_Legende,
-			figure + .txt_Legende,
-			.txt_Legende + .txt_Legende,
-			.table + .txt_Legende {
-				margin-top: 0;
-			}
-
-			.txt_Legende:last-of-type {
-				margin-bottom: 1em;
-			}
-
-			figcaption .txt_Legende:last-of-type {
-				margin-bottom: 0;
-			}
-
-			.txt_Legende .hyperlink {
-				text-align: center;
-				opacity: .8;
-			}
-		");
+		//===============================
+		// lire le contenu CSS à partir du fichier
+		$css = file_get_contents($this->getPluginPath().'/styles/htmlMonographFile.less');
+		$additional_css = $doc->createElement("style", $css);		
 		$doc_head->appendChild($additional_css);
+		//================================
 
 		$doc_jQuery = $doc->createElement("script", "");
 		$doc_jQuery->setAttribute("src", "https://code.jquery.com/jquery-3.6.0.min.js");
 		$doc_head->appendChild($doc_jQuery);
-		
-		$doc_mathJax = $doc->createElement("script", "");
-		$doc_mathJax->setAttribute("src", "http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML");
-		$doc_head->appendChild($doc_mathJax);
 
 		$doc_magnific_popup_js = $doc->createElement("script", "");
 		$doc_magnific_popup_js->setAttribute("src", "https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js");
 		$doc_head->appendChild($doc_magnific_popup_js);
 
+		$doc_script_mathjax_1 = $doc->createElement("script", "window.MathJax = { tex: { tags: 'ams', }, };");
+		$doc_head->appendChild($doc_script_mathjax_1);
+
+		$doc_script_mathjax_2 = $doc->createElement("script", "
+			let sectionNumber = 0;
+			let equationNumber = 0;
+			MathJax = {
+				loader: {load: ['[tex]/tagformat']},
+				section: 1,
+				tex: {
+					tags: 'ams',
+					packages: {'[+]': ['tagformat']},
+					tagformat: {
+						number: (n) => {
+							if (MathJax.config.section !== sectionNumber) {
+								sectionNumber = MathJax.config.section;
+								equationNumber = 0;
+							}
+							equationNumber++;
+							return sectionNumber + '.' + equationNumber;
+						}
+					}
+				},
+				startup: {
+					typeset: false,
+					pageReady() {
+						console.log(`Section :`);
+						const sections = document.querySelectorAll(`[id^='section']`);
+			
+						sections.forEach(section => {
+							n = 1;
+							let sectionId = section.id.replace('section', '');
+							MathJax.config.section = sectionId;
+							MathJax.typeset([`#section`+sectionId]);
+						});
+						MathJax.typeset()
+					}
+				}
+			};
+		");
+		$doc_head->appendChild($doc_script_mathjax_2);
+	
+		$doc_script_mathjax_3 = $doc->createElement("script");
+		$doc_script_mathjax_3->setAttribute('async', 'async');
+		$doc_script_mathjax_3->setAttribute('id', 'MathJax-script');
+		$doc_script_mathjax_3->setAttribute('src', 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js');
+		$doc_script_mathjax_3->setAttribute('type', 'text/javascript');
+		$doc_head->appendChild($doc_script_mathjax_3);
+
+		$navbar = $doc->getElementById("mainnav");
+		if($navbar){
+			$link_cover = $doc->createElement("a");
+			$link_cover->setAttribute('class', 'coverImageLink');
+			$link_cover->setAttribute('href', '');
+			$navbar->insertBefore($link_cover, $navbar->firstChild);
+			$img_cover = $doc->createElement("img");
+			$img_cover->setAttribute('class', 'coverImage');
+			$img_cover->setAttribute('src', $monograph->getCurrentPublication()->getLocalizedCoverImageThumbnailUrl($monograph->getData('contextId')));
+			$link_cover->appendChild($img_cover);
+		}else{
+			error_log("ERREUR : Absence anormale de la navbar a gauche (impossibilite d'inserer la vignette)");
+		}
+
 		$td_elements = $doc->getElementsByTagName("td");
 		foreach ($td_elements as $key => $td) {
 			$td->removeAttribute("style");
 		}
-
 		$doc_new_script = $doc->createElement("script", "
 			(function () {
 				let figureNodes = document.querySelectorAll('figure');
@@ -423,23 +310,22 @@ class HtmlMonographFilePlugin extends GenericPlugin {
 			})();
 		");
 		$doc_body->appendChild($doc_new_script);
-
 		$doc_new_script = $doc->createElement("script", "
 			$(document).ready(function($) {
 				$('.magnificPopupImage').magnificPopup({
-				gallery: {
-					enabled: true
-				},
-				type:'image',
-				image: {
-					titleSrc: 'caption'
-				}
+					gallery: {
+						enabled: true
+					},
+					type:'image',
+					image: {
+						titleSrc: 'caption'
+					}
 				});
-			});		 
+			})
 		");
 		$doc_body->appendChild($doc_new_script);
-
 		$contents = $doc->saveHTML();
+
 		return $contents;
 	}
 

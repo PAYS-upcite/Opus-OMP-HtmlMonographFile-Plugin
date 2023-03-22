@@ -1,0 +1,213 @@
+/**
+ * @file plugins/generic/htmlMonographFile/styles/htmlMonographFile.less
+ *
+ * @brief Universite Paris Cite OMP htmlMonographFile plugin stylesheet
+ *
+ */
+ 
+body {
+    background-color: #FFFFFF;
+}
+
+#mainnav {
+    position: fixed; 
+    overflow-y: auto; 
+    top: 0;
+    bottom: 0;
+    padding-right: 1rem;
+}
+
+article {
+    margin-left: 20%;
+    padding-left: 3rem;
+    font-size: 1.5rem;
+    line-height: 1.2;
+    width: 57%;
+}
+
+.tonote sup {
+    vertical-align: baseline;
+    position: relative;
+    top: -.3em;
+}
+
+.manchette {
+    float: right;
+    margin-right: -23vw;
+    clear: right;
+    width: 20vw;
+    position: relative;
+    top: 0.3rem;
+    font-size: 90%;
+}
+
+a.hide , a.show {
+    visibility:hidden;
+}
+
+body a {
+    text-decoration: none;
+    color: #8a1538 !important;
+    transition: all .3s ease-in-out;
+}
+
+img {
+    max-height: 80vh;
+    max-width: 80vw;
+    height: auto;
+    width: auto;
+}
+
+@media screen and (max-width:1000px){
+    article{
+        margin-left: 0%;
+        padding-left: 0rem;
+        border-left: none;
+        width: 100%;
+    }
+}
+
+.totdm{
+    display: none;
+}
+
+#nav li{
+    margin-bottom : 0.5em;
+    font-family : serif;
+}
+
+.head1{
+    list-style : none;
+//    margin-top : 2em;
+}
+
+.magnificPopupImage:hover{
+    opacity:.7;
+}
+
+.magnificPopupImage{
+    font-family: sans-serif;
+    color: #666;
+    font-size: 80%;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+h1{
+    text-align: center;
+    font-size: 2em;
+}
+
+img.coverImage{
+    max-height: max(40%, 150px);
+    height: 300px;
+    width: auto;
+    display: block;
+    margin: auto;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+h2, h3, h4, h5{
+    text-align: left;
+}
+
+.docAuthor, .hyperlink, .affiliation{
+    text-align: right;
+    display: block;
+    margin: 0;
+}
+
+.txt_Note .hyperlink{
+    text-align: left;
+    display: inline;
+}
+
+blockquote .manchette{
+    margin-right: calc(-23vw - 40px);
+}
+
+.docAuthor{
+    text-align: right;
+    display: block;
+    margin-top: 1em;
+}
+
+.txt_separateur {
+    text-align: center;
+    font-weight: bold;
+}
+
+figure {
+    margin-bottom: 0;
+}
+
+figcaption {
+    font-size: 1rem;
+}
+
+.table table {
+    text-align: initial;
+    font-family: Helvetica, sans-serif;
+    font-size: 1.2rem;
+    border-collapse: collapse;
+}
+
+.table table tr:nth-child(2n) {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+  
+.table table td {
+    padding: 6px 13px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.table caption {
+    caption-side: bottom;
+    font-weight: normal;
+}
+
+.txt_Legende, .table caption {
+    font-family: sans-serif;
+    color: #666;
+    font-size: 1rem;
+    text-align: center;
+    margin-top: 1em;
+    margin-bottom: 0;
+}
+
+figcaption .txt_Legende,
+figcaption + .txt_Legende,
+figure + .txt_Legende,
+.txt_Legende + .txt_Legende,
+.table + .txt_Legende {
+    margin-top: 0;
+}
+
+.txt_Legende:last-of-type {
+    margin-bottom: 1em;
+}
+
+figcaption .txt_Legende:last-of-type {
+    margin-bottom: 0;
+}
+
+.txt_Legende .hyperlink {
+    text-align: center;
+    opacity: .8;
+}
+
+@media all and (max-width: 600px){
+    article{
+        text-align: left;
+        font-size: 1.2rem;
+    }
+}
+
+article figure img {
+    max-width: 90%;
+}
+
+a{
+    color: #704444;
+}
