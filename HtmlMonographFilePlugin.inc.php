@@ -276,10 +276,12 @@ class HtmlMonographFilePlugin extends GenericPlugin {
 		$doc_head->appendChild($doc_script_mathjax_3);
 
 		$navbar = $doc->getElementById("mainnav");
+		
 		if($navbar){
 			$link_cover = $doc->createElement("a");
 			$link_cover->setAttribute('class', 'coverImageLink');
-			$link_cover->setAttribute('href', '');
+			$link_cover->setAttribute('href', $request->url($press->getPath(), 'catalog', 'book', $monograph->getBestId(), null, null, true));
+			
 			$navbar->insertBefore($link_cover, $navbar->firstChild);
 			$img_cover = $doc->createElement("img");
 			$img_cover->setAttribute('class', 'coverImage');
