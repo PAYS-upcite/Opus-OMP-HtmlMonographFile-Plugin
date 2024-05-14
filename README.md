@@ -38,7 +38,7 @@ The HtmlMonographFile plugin allows HTML files to be opened and viewed within th
 
 ### Main Developer
 
-- University Paris Cité Open Access team
+- PKP team
 
 ### Contributors
 
